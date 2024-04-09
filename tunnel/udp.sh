@@ -26,7 +26,7 @@ sleep 4
 echo " Proses Download Script Config Default........"
 sleep 4
 clear
-echo " Cecking Config Default By CLOUDVPN......."
+echo " Cecking Config Default......."
 sleep 4
 clear
 echo " Succes Cecking Config Default Tool..........."
@@ -41,7 +41,7 @@ chmod 644 /root/udp/config.json
 if [ -z "$1" ]; then
 cat <<EOF > /etc/systemd/system/udp-custom.service
 [Unit]
-Description=UDP Custom by cloudvpn
+Description=UDP Custom
 
 [Service]
 User=root
@@ -57,7 +57,7 @@ EOF
 else
 cat <<EOF > /etc/systemd/system/udp-custom.service
 [Unit]
-Description=UDP Custom by cloudvpn
+Description=UDP Custom
 
 [Service]
 User=root
