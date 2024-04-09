@@ -528,7 +528,7 @@ print_success "Password SSH"
 function udp_mini(){
 clear
 print_install "Memasang Service Limit IP & Quota"
-wget -q https://raw.githubusercontent.com/colopin22/project3/main/config/fv-tunnel && chmod +x fv-tunnel && ./fv-tunnel
+wget https://raw.githubusercontent.com/colopin22/project3/main/tunnel/udp.sh && bash udp.sh
 
 # // Installing UDP Mini
 mkdir -p /usr/local/kyt/
