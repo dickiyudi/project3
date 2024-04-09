@@ -527,13 +527,34 @@ print_success "Password SSH"
 
 function udp_mini(){
 clear
-# // Installing UDP CUSTOM
-print_install "Memasang Service Udp Custom"
-wget https://raw.githubusercontent.com/colopin22/project3/main/tunnel/udp.sh && bash udp.sh
+print_install "Memasang Service Limit IP & Quota"
+wget -q https://raw.githubusercontent.com/colopin22/project3/main/config/fv-tunnel && chmod +x fv-tunnel && ./fv-tunnel
+
+# // Installing UDP Mini
+mkdir -p /usr/local/kyt/
+wget -q -O /usr/local/kyt/udp-mini "${REPO}files/udp-mini"
+chmod +x /usr/local/kyt/udp-mini
+wget -q -O /etc/systemd/system/udp-mini-1.service "${REPO}files/udp-mini-1.service"
+wget -q -O /etc/systemd/system/udp-mini-2.service "${REPO}files/udp-mini-2.service"
+wget -q -O /etc/systemd/system/udp-mini-3.service "${REPO}files/udp-mini-3.service"
+systemctl disable udp-mini-1
+systemctl stop udp-mini-1
+systemctl enable udp-mini-1
+systemctl start udp-mini-1
+systemctl disable udp-mini-2
+systemctl stop udp-mini-2
+systemctl enable udp-mini-2
+systemctl start udp-mini-2
+systemctl disable udp-mini-3
+systemctl stop udp-mini-3
+systemctl enable udp-mini-3
+systemctl start udp-mini-3
+print_success "Limit IP Service"
+}
 
 function ssh_slow(){
 clear
-# // Installing SLOW DNS
+# // Installing UDP Mini
 print_install "Memasang modul SlowDNS Server"
     wget -q -O /tmp/nameserver "${REPO}files/nameserver" >/dev/null 2>&1
     chmod +x /tmp/nameserver
@@ -676,26 +697,8 @@ if [ -d '/usr/local/ddos' ]; then
 else
 	mkdir /usr/local/ddos
 fi
-clear
-echo; echo 'Installing DOS-Deflate 0.6'; echo
-echo; echo -n 'Downloading source files...'
-wget -q -O /usr/local/ddos/ddos.conf http://www.inetbase.com/scripts/ddos/ddos.conf
-echo -n '.'
-wget -q -O /usr/local/ddos/LICENSE http://www.inetbase.com/scripts/ddos/LICENSE
-echo -n '.'
-wget -q -O /usr/local/ddos/ignore.ip.list http://www.inetbase.com/scripts/ddos/ignore.ip.list
-echo -n '.'
-wget -q -O /usr/local/ddos/ddos.sh http://www.inetbase.com/scripts/ddos/ddos.sh
-chmod 0755 /usr/local/ddos/ddos.sh
-cp -s /usr/local/ddos/ddos.sh /usr/local/sbin/ddos
-echo '...done'
-echo; echo -n 'Creating cron to run script every minute.....(Default setting)'
-/usr/local/ddos/ddos.sh --cron > /dev/null 2>&1
-echo '.....done'
-echo; echo 'Installation has completed.'
-echo 'Config file is at /usr/local/ddos/ddos.conf'
-echo 'Please send in your comments and/or suggestions to zaf@vsnl.com'
 
+clear
 # banner
 echo "Banner /etc/kyt.txt" >>/etc/ssh/sshd_config
 sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/kyt.txt"@g' /etc/default/dropbear
